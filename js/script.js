@@ -1,0 +1,55 @@
+let post = document.querySelector(".post");
+let name0 = document.querySelector(".name0");
+let caption = document.querySelector(".caption");
+let postbtn = document.querySelector(".postbtn");
+
+let arr = [];
+
+postbtn.addEventListener("click", () => {
+  if (!name0.value) {
+    name0.value = "";
+    name0.placeholder = "Please enter your name";
+    name0.style.borderColor = "red";
+
+  } else if (!caption.value) {
+    caption.value = "";
+    caption.placeholder = "Please write a caption";
+    caption.style.borderColor = "red";
+
+  } else {
+    arr.push({
+      name0: name0.value,
+      caption: caption.value,
+    });
+
+    post.innerHTML=""
+
+    show();
+
+
+    name0.value = "";
+    caption.value = "";
+    name0.placeholder = "Enter Your Name";
+    caption.placeholder = "Write Something";
+    name0.style.borderColor = "";
+    caption.style.borderColor = "";
+
+    
+    
+  }
+  
+});
+
+function show() {
+  arr.map((item) => {
+    post.innerHTML += `<div class="card" style="width: 18rem">
+    <div class="card-body">
+    <h5 class="card-title">${item.name0}</h5>
+    <p class="card-text">${item.caption}</p>
+    <button class="btn btn-primary">Edit</button>
+    <button class="btn btn-danger">Delete</button>
+    </div>
+    </div>`;
+  });
+}
+
