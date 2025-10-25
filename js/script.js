@@ -47,9 +47,23 @@ function show() {
     <h5 class="card-title">${item.name0}</h5>
     <p class="card-text">${item.caption}</p>
     <button class="btn btn-primary">Edit</button>
-    <button class="btn btn-danger">Delete</button>
+    <button class="btn btn-danger delete">Delete</button>
     </div>
     </div>`;
   });
+
+  let deleteBtn=document.querySelectorAll(".delete")
+  let convertdeleteBtn=Array.from(deleteBtn)
+  
+  convertdeleteBtn.map((item,index)=>{
+    item.addEventListener("click",()=>{
+      arr.splice(index,1)
+      post.innerHTML=""
+      show()
+      
+    })
+  })
+  
+
 }
 
