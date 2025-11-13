@@ -2,12 +2,9 @@ let post = document.querySelector(".post");
 let name0 = document.querySelector(".name0");
 let caption = document.querySelector(".caption");
 let postbtn = document.querySelector(".postbtn");
-let update=document.querySelector(".update")
+let update = document.querySelector(".update");
 
 let EditStor;
-
-
-
 
 let arr = [];
 
@@ -16,22 +13,19 @@ postbtn.addEventListener("click", () => {
     name0.value = "";
     name0.placeholder = "Please enter your name";
     name0.style.borderColor = "red";
-
   } else if (!caption.value) {
     caption.value = "";
     caption.placeholder = "Please write a caption";
     caption.style.borderColor = "red";
-
   } else {
     arr.push({
       name0: name0.value,
       caption: caption.value,
     });
 
-    post.innerHTML=""
+    post.innerHTML = "";
 
     show();
-
 
     name0.value = "";
     caption.value = "";
@@ -39,35 +33,29 @@ postbtn.addEventListener("click", () => {
     caption.placeholder = "Write Something";
     name0.style.borderColor = "";
     caption.style.borderColor = "";
-
-    
-    
   }
-  
 });
 
+update.addEventListener("click", () => {
+  arr[EditStor].name0 = name0.value;
+  arr[EditStor].caption = caption.value;
 
-update.addEventListener("click",()=>{
-  
+  post.innerHTML = "";
 
-  arr[EditStor].name0=name0.value
-  arr[EditStor].caption=caption.value
-  
-  post.innerHTML=""
+  show();
 
-  show()
+  update.style = "display:none";
+  postbtn.style = "display:inline-block";
 
+  name0.value = "";
+  caption.value = "";
 
-  update.style="display:none"
-  postbtn.style="display:inline-block"
-
-    name0.value = "";
-    caption.value = "";
-  
-})
-
-
-
+  document.querySelectorAll(".edit, .delete").forEach((b) => {
+    b.disabled = false;
+    b.style.opacity = "1";
+    b.style.cursor = "pointer";
+  });
+});
 
 function show() {
   arr.map((item) => {
@@ -81,37 +69,34 @@ function show() {
     </div>`;
   });
 
-  let deleteBtn=document.querySelectorAll(".delete")
-  let convertdeleteBtn=Array.from(deleteBtn)
-  
-  convertdeleteBtn.map((item,index)=>{
-    item.addEventListener("click",()=>{
-      arr.splice(index,1)
-      post.innerHTML=""
-      show()
-      
-    })
+  let deleteBtn = document.querySelectorAll(".delete");
+  let convertdeleteBtn = Array.from(deleteBtn);
 
+  convertdeleteBtn.map((item, index) => {
+    item.addEventListener("click", () => {
+      arr.splice(index, 1);
+      post.innerHTML = "";
+      show();
+    });
+  });
 
-  })
-  let edit=document.querySelectorAll(".edit")
-  let editBtn=Array.from(edit)
-  editBtn.map((item,index)=>{
-    item.addEventListener("click",()=>{
-      // console.log(arr[index].name0);
+  let edit = document.querySelectorAll(".edit");
+  let editBtn = Array.from(edit);
+  editBtn.map((item, index) => {
+    item.addEventListener("click", () => {
+      name0.value = arr[index].name0;
+      caption.value = arr[index].caption;
 
-      name0.value=arr[index].name0
-      caption.value=arr[index].caption
+      EditStor = index;
 
-      EditStor=index
+      update.style = "display:inline-block";
+      postbtn.style = "display:none";
 
-      update.style="display:inline-block"
-      postbtn.style="display:none"
-
-      
-      
-    })
-  })
-
+      document.querySelectorAll(".edit, .delete").forEach((b) => {
+        b.disabled = true;
+        b.style.opacity = "0.5";
+        b.style.cursor = "not-allowed";
+      });
+    });
+  });
 }
-
